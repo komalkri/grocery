@@ -1,6 +1,6 @@
 <!DOCTYPE html>
  <html>
-   <title> FORM </title>
+   <title> Form </title>
    <body>
       <form action="process.php" method="post">
 	    NAME : <input class="input"  type="text" placeholder="name" name="name" required><br><br>
