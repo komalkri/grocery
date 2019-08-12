@@ -1,8 +1,15 @@
+<?PHP 
+session_start();
+ include 'config.php';
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
 * {box-sizing: border-box;}
@@ -155,7 +162,7 @@ button:hover {
 }
 
 /* Add padding to container elements */
-.container {
+.container1 {
   padding: 16px;
 }
 
@@ -247,6 +254,7 @@ hr {
 
 
 </style>
+
 </head>
 <body>
 <table width="100%" align="center">
@@ -260,13 +268,12 @@ hr {
   <table align="center" width="100%">
    <tr>
     <td width="40%" align="center">
-      <h1><font face="Lucida Sans Unicode, Lucida Grande, sans-serif"><font color="#FF0000">G</font><font color="#000000">rocery</font>
-	  <font color="#FF0000"> S</font><font color="#000000">hoppy</font></font></h1>
+      <h1><font face="Lucida Sans Unicode, Lucida Grande, sans-serif"><font color="#FF0000">G</font><font color="#000000">rocery</      font><font color="#FF0000"> S</font><font color="#000000">hoppy</font></font></h1>
     </td>
     <td width="60%">
       <table>
       <tr><td><button class="track-button" onClick="" style="font-size:16px">Track Order</button></td>
-      <td><button class="no-button" onClick="" style="font-size:16px">|&nbsp;&nbsp;&nbsp;0012345678</button></td><td><button class="open-button" onClick="openForm()" style="font-size:16px">|&nbsp;&nbsp;&nbsp;Login</button></td><td><button class="logout-button" onClick="" style="font-size:16px">|&nbsp;&nbsp;&nbsp;Logout</button></td></tr>
+      <td><button class="no-button" onClick="" style="font-size:16px">|&nbsp;&nbsp;&nbsp;0012345678</button></td><td><button class="open-button" onClick="openForm()" style="font-size:16px">|&nbsp;&nbsp;&nbsp;Login</button></td><td><button class="logout-button" onClick="logout()" style="font-size:16px">|&nbsp;&nbsp;&nbsp;Logout</button></td></tr>
       </table>
     </td>
    </tr>
@@ -275,15 +282,15 @@ hr {
         <img src="img/logo2.png" width="100px" style="height:100px">
      </td>
      <td>
-      <form name="f1" action="display.php" method="post">
+      <form name="f1" action="" method="post">
            <table width="100%">
              <tr height="40">
                <td align="right">
-                 <input type="text" name="n1" align="middle" placeholder="How can I help you?" size="60%" /></td>
+                 <input type="text" name="n1" align="middle" placeholder="How can I help you?"  size="60%" /></td>
                <td align="left">
-                 <input type="image" align="left" src="img/images.jpg" width="30" height="25"></td>
+                 <button type="submit" align="left" name="s2"  width="30"  height="25">Search</button></td>
                <td align="right">
-                 <input type="image" align="right" src="img/shopping-cart-icon-26.jpg" width="40" height="40"></td>
+                 <input type="image" align="right" src="img/shopping-cart-icon-26.jpg" width="40" onClick="cart()" height="40"></td>
              </tr>
            </table>
       </form>  
@@ -292,14 +299,14 @@ hr {
    </table>
 </td></tr></table>
 <div class="form-popup" id="myForm">
-  <form action="/addtocart.php" class="form-container">
+  <form action="" class="form-container">
     <h1>Login</h1>
 
     <label for="email"><b>Username</b></label>
-    <input type="text"  size="15"placeholder="Enter Username" name="name" required>
+    <input type="text" placeholder="Enter Username" name="uname" required>
 
     <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+    <input type="password" placeholder="Enter Password" name="psw"  required>
 
     <button type="submit" class="btn" name="s1">Login</button>
     <button onClick="document.getElementById('id01').style.display='block'"  class="btn" type="button">Sign Up</button>
@@ -307,20 +314,22 @@ hr {
 	
 	
 	<?php
-   include 'config.php';
+	include 'config.php';
    if(isset($_POST['s1'])){
-  $user=$_POST['name'];
+	   echo "button Pressed";
+  $user=$_POST['uname'];
   $pwd=$_POST['psw'];
-   $q1="select * from login_tab where user_name='$user' and password='$pwd'";
+  echo $user;
+   $q1="select * from login_table  where user_name= '$user' and password='$pwd'";
    $list=mysql_query($q1);
-   $f=mysql_num_rows($list);
-   if($f<1)
+   if(mysql_num_rows($list)<1)
     { 
-      echo "Wrong password plz try again";
+      echo '<script type="text/javascript">alert(" Wrong Password or userId");</script>';
 	}
 	 else{
          $_SESSION['log']=$user;
-          include 'addtocart.php';
+		 echo '<meta http-eqiv="refresh" content="0; url="addtocart.php">';
+       
          }
    }
   ?>		 
@@ -331,26 +340,26 @@ hr {
 
 <div id="id01" class="modal">
   <span onClick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-  <form class="modal-content" action="home.php">
-    <div class="container">
+  <form class="modal-content" action="Index.php" method="post">
+    <div class="container1">
       <h1 align="left">Sign Up</h1>
       <p align="left">Please fill in this form to create an account.</p>
       <hr>
 	  <label for="username"><b>Username</b></label>
-      <input type="text" size="10" placeholder="Enter Username" name="uname" required>
+      <input type="text" placeholder="Enter Username" name="uname" required>
 
       <label for="email"><b>Email</b></label>
       <input type="text" placeholder="Enter Email" name="email" required>
 	 
 	  <label for="mobile"><b>Mobile No</b></label>
-      <input type="text" size="10" placeholder="Mobile No" name="mno" required>
+      <input type="text" placeholder="Mobile No" name="mno" size="10" title="Not use +91" required>
 
 
       <label for="psw"><b>Password</b></label>
       <input type="password" placeholder="Enter Password" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
 
-      <label for="psw-repeat"><b>Repeat Password</b></label>
-      <input type="password" placeholder="Repeat Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" name="psw-repeat" required>
+      <label for="psw-repeat"><b>Confirm Password</b></label>
+      <input type="password" placeholder="Confirm Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" name="psw-repeat" required>
 	  
       
       <label>
@@ -361,36 +370,39 @@ hr {
 
       <div class="clearfix">
         <button type="button" onClick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-        <button type="submit"  name="s2" class="signupbtn" onClick="return Validate()">Sign Up</button>
+        <button type="submit"  name="s2" class="signupbtn">Sign Up</button>
       </div>
     </div>
 	<?php
   include 'config.php';
-  if(isset($_POST['s2'])){
-	  
+  if(isset($_POST['s2'])){ 
   $fn=$_POST['uname'];
   $ln=$_POST['psw'];
-  $email = test_input($_POST["email"]);
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-  $emailErr = "Invalid email format"; 
-}
-  $pwd=$_POST['mno'];
-  $d= mysql_query("insert into login_table(user_name,password) Values 
-   ('$fn','$ln')");
-   if(!$d)
-   {
-	    die('could not update:'.mysql_error());
-   }
-   echo "house";
-   
-  } 
-?>
+  $cp=$_POST['psw-repeat'];
+  $email = $_POST['email'];
+  if($cp != $ln){
+        echo '<script type="text/javascript">alert("Confirm password does not match password!!");</script>';
 
+    }
+    else{
+          $query = "INSERT INTO login_table (user_name,password) VALUES ('$fn','$ln')";
+          $result = mysql_query($query);
+          if($result){
+           echo '<script type="text/javascript">alert("Record saved successfully!!");</script>';
+
+          }
+    }
+   }
+?>
   </form>
 </div>
 
 
 <script>
+function logout(){
+  window.open("Index.php");
+
+}
 function openForm() {
   document.getElementById("myForm").style.display = "block";
 }
@@ -465,15 +477,7 @@ myInput.onkeyup = function() {
     length.classList.add("invalid");
   }
 }
-function Validate() {
-   var password=document.getElementById("psw").value;
-   var confirmpassword=document.getElementById("psw-repeat").value;
-   if(password != confirmpassword) {
-    alert("Passwords do not match.");
-	return false;
-}
-  return true;
- } 
+
 
 </script>
 

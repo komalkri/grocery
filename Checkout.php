@@ -7,11 +7,35 @@ session_start();
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script type="text/javascript" language="javascript">
+<script>
+function Paypal()
+{
+  if(document.getElementById("cash1").checked == true){
+  window.open("Invoice.php");
+  }
+  else{
+    window.open("Paypal.php");
+  }
+  
+}
  function enable_text()
   {
-    if(document.getElementById("cash").checked == true)
-	document.getElementById("cname").disabled = status;
+    if(document.getElementById("cash1").checked == true){
+	 
+	document.getElementById("cname").disabled = true;
+	document.getElementById("ccnum").disabled = true;
+	document.getElementById("mon").disabled = true;
+	document.getElementById("yr").disabled = true;
+	document.getElementById("cvv").disabled = true;
+	}
+	if(document.getElementById("cash1").unchecked == true){
+	 document.getElementById("cname").enabled = true;
+	document.getElementById("ccnum").enabled = true;
+	document.getElementById("mon").enabled = true;
+	document.getElementById("yr").enabled = true;
+	document.getElementById("cvv").enabled = true;
+	
+	}
   }
   </script>
 <style>
@@ -68,6 +92,14 @@ input[type=text] {
   border: 1px solid #ccc;
   border-radius: 3px;
 }
+select{
+	 width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
 
 label {
   margin-bottom: 10px;
@@ -167,11 +199,37 @@ span.price {
             <label for="ccnum">Credit card number</label>
             <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
             <label for="expmonth">Exp Month</label>
-            <input type="text" id="expmonth" name="expmonth" placeholder="September">
+			 <select name="months" id="mon">
+               <option value="January">January</option>
+               <option value="February">February</option>
+               <option value="March">March</option>
+               <option value="April">April</option>
+               <option value="May">May</option>
+               <option value="June">June</option>
+               <option value="July">July</option>
+               <option value="August">August</option>
+               <option value="September">September</option>
+               <option value="October">October</option>
+               <option value="November">November</option>
+               <option value="December">December</option>
+           </select>            
             <div class="row">
               <div class="col-50">
                 <label for="expyear">Exp Year</label>
-                <input type="text" id="expyear" name="expyear" placeholder="2018">
+				 <select name="year" id="yr">
+               <option value="2019">2019</option>
+               <option value="2020">2020</option>
+               <option value="2021">2021</option>
+               <option value="2022">2022</option>
+               <option value="2023">2023</option>
+               <option value="2024">2024</option>
+               <option value="2025">2025</option>
+               <option value="2026">2026</option>
+               <option value="2027">2027</option>
+               <option value="2028">2028</option>
+               <option value="2029">2029</option>
+               <option value="2030">2030</option>
+           </select>
               </div>
               <div class="col-50">
                 <label for="cvv">CVV</label>
@@ -185,10 +243,10 @@ span.price {
           <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
         </label>
 		<label>
-          <input type="checkbox" checked="unchecked" name="cash" onChange="javascript:enable_text();"> Cash On Delivery
+          <input type="checkbox"  name="cash" id="cash1" onClick="enable_text()"> Cash On Delivery 
         </label>
         
-        <input type="submit" value="Continue to checkout" class="btn">
+        <input type="submit"onclick="Paypal()" value="Continue to checkout" class="btn">
       </form>
     </div>
   </div>

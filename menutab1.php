@@ -20,7 +20,7 @@
     overflow: hidden;
     font-size:17px;
   }
-  .container1 {
+  .container {
      position :relative;
      text-align: center;
      color:#fff;
@@ -121,7 +121,7 @@
                </td>
                <td align="center">
                 
-		<a href="Home.php" style="text-decoration:none"><font color="#000000"> HOME</font></a>
+		<a href="Index.php" style="text-decoration:none"><font color="#000000"> HOME</font></a>
         </td>
         <td align="center">
         <a href="About.php" style="text-decoration:none"><font color="#000000">ABOUT US</font></a>
@@ -173,7 +173,7 @@
 		 </td>
 		 </tr>
 		 </table>
-      <div class="container1">
+      <div class="container">
          <img name="slide" width="100%" height="100%">
          <div class="centered"><b><font size="20px">STAY HOME AND  SHOP ONLINE...</font></b></div>
         </div> 
